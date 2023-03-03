@@ -1,8 +1,9 @@
 import asyncio
+import datetime
+import time
+
 import socks
 from telethon import TelegramClient, events
-import time
-import datetime
 
 from messages import (
     ALREADY_RESERVED,
@@ -14,9 +15,8 @@ from messages import (
     SILENCE,
     YES,
 )
+from settings import API_HASH, API_ID, MY_USERNAME, SEATS, SESSION
 from status import Status
-from settings import API_ID, API_HASH, SESSION, SEATS
-
 
 BOT = "zagrosibot"
 
@@ -25,10 +25,7 @@ reserved = {}
 status = Status()
 
 client = TelegramClient(
-    SESSION,
-    API_ID,
-    API_HASH,
-    proxy=(socks.SOCKS5, "localhost", 1080, True)
+    SESSION, API_ID, API_HASH, proxy=(socks.SOCKS5, "localhost", 1080, True)
 )
 client.start()
 
@@ -80,12 +77,12 @@ async def reserve(date):
         if status.ok:
             reserved[date] = True
             status.reserving = False
-            await client.send_message("MaGaroo", f"{date} >>>> {i}")
+            await client.send_message(MY_USERNAME, f"{date} >>>> {i}")
             return
 
     status.reserving = False
     reserved[date] = True
-    await client.send_message("MaGaroo", date + " نشد")
+    await client.send_message(MY_USERNAME, date + " نشد")
 
 
 async def send_reserve_request():
