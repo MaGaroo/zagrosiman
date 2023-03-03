@@ -1,0 +1,9 @@
+API_ID = 11111
+API_HASH = "YOUR_API_HASH_HERE"
+SESSION = "YOUR_SESSION_NAME_HERE"
+SEATS = [
+    # A list containing your preferred seats
+    # First seat has most priority
+    # Last seat has least priority
+]
+MY_USERNAME = "YOUR_USERNAME_HERE"
