@@ -19,3 +19,4 @@ RESERVE_FAILED = """دیر جنبیدی یکی دیگه میزو گرفت...
 RESERVE = "/reserve"
 CANCEL = "/cancel"
 YES = """آره"""
+DOUBLE_CHECK_KEYWORD = """هنوزم میخوایش"""

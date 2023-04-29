@@ -9,6 +9,7 @@ from messages import (
     ALREADY_RESERVED,
     CANCEL,
     CHOOSE_DATE_MESSAGE,
+    DOUBLE_CHECK_KEYWORD,
     RESERVE,
     RESERVE_FAILED,
     RESERVE_SUCCESSFUL,
@@ -32,6 +33,11 @@ client.start()
 
 @client.on(events.NewMessage(chats=["zagrosibot"]))
 async def handle_choose_date(e):
+    if DOUBLE_CHECK_KEYWORD in e.raw_text:
+        msg = e.message
+        buttons = await msg.get_buttons()
+        await buttons[0][0].click()
+        return
     if status.reserving:
         return
     if e.raw_text == CHOOSE_DATE_MESSAGE:
@@ -52,7 +58,7 @@ async def handle_choose_date(e):
         await send_reserve_request()
 
 
-@client.on(events.NewMessage)
+@client.on(events.NewMessage(chats=["zagrosibot"]))
 async def reserve_response_handler(e):
     if e.raw_text in [RESERVE_SUCCESSFUL, ALREADY_RESERVED]:
         status.ok = True
